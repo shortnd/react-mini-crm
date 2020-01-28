@@ -20,10 +20,11 @@ export function makeServer({ environment = "development" } = {}) {
     routes() {
       this.namespace = "api"
 
-      this.get("/users", schema => {
-        return schema.users.all()
-      })
+      this.resource("users");
+      this.get("/users");
       this.get("/users/:id");
+      // this.get("/users");
+      // this.get("/users/:id");
 
       this.get("/movies", schema => {
         return schema.movies.all()

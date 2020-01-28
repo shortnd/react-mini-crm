@@ -7,11 +7,17 @@ class User extends React.Component {
   state = {
     user: {}
   }
-
-  static getDerivedStateFromProps(props, state) {
-    console.log(props)
+  async componentDidMount() {
+    const { id } = this.props.match.params
+    await fetch(`/users/${id}`)
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          user: json.user
+        })
+      })
+    // console.log(id);
   }
-
   // componentWillMount() {
   //   console.log(this.props)
   // }
