@@ -6,11 +6,15 @@ export function makeServer({ environment = "development" } = {}) {
 
     models: {
       user: Model,
+      movie: Model
     },
 
     seeds(server) {
       server.create("user", { name: "Bob" })
       server.create("user", { name: "Alice" })
+      server.create("movie", { name: "Inception", year: 2010 })
+      server.create("movie", { name: "Interstellar", year: 2014 })
+      server.create("movie", { name: "Dunkirk", year: 2015 })
     },
 
     routes() {
@@ -18,6 +22,11 @@ export function makeServer({ environment = "development" } = {}) {
 
       this.get("/users", schema => {
         return schema.users.all()
+      })
+      this.get("/users/:id");
+
+      this.get("/movies", schema => {
+        return schema.movies.all()
       })
     },
   })
