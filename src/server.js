@@ -1,4 +1,4 @@
-import { Server, Model } from "miragejs"
+import { Server, Model, belongsTo, hasMany } from "miragejs"
 
 export function makeServer({ environment = "development" } = {}) {
   let server = new Server({
@@ -6,29 +6,21 @@ export function makeServer({ environment = "development" } = {}) {
 
     models: {
       user: Model,
-      movie: Model
+      company: Model.extend({
+        employees: hasMany()
+      }),
+      employees: Model.extend({
+        company: belongsTo()
+      })
     },
 
     seeds(server) {
-      server.create("user", { name: "Bob" })
-      server.create("user", { name: "Alice" })
-      server.create("movie", { name: "Inception", year: 2010 })
-      server.create("movie", { name: "Interstellar", year: 2014 })
-      server.create("movie", { name: "Dunkirk", year: 2015 })
     },
 
     routes() {
       this.namespace = "api"
 
       this.resource("users");
-      this.get("/users");
-      this.get("/users/:id");
-      // this.get("/users");
-      // this.get("/users/:id");
-
-      this.get("/movies", schema => {
-        return schema.movies.all()
-      })
     },
   })
 
