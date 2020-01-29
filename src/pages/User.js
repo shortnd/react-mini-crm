@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import Layout from "../layouts/Layout"
 const User = () => {
@@ -21,6 +21,8 @@ const User = () => {
   return (
     <Layout>
       <h1>{user.name}</h1>
+      <br />
+      <Link to={`/users/${user.id}/edit`}>Edit</Link> | <Link to={`/users/${user.id}/delete`}>Delete</Link>
     </Layout>
   )
 }

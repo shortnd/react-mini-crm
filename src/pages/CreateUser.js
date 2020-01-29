@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Layout from "../layouts/Layout"
 
@@ -13,10 +13,11 @@ const CreateUser = () => {
       body: {
         name: name
       }
-    }).then(res => {
+    }).then(() => {
       history.replace("/users");
-    })
+    });
   }
+
   return (
     <Layout>
       <h2>Create User</h2>
@@ -28,6 +29,10 @@ const CreateUser = () => {
         <label htmlFor="name">Name</label>
         <input type="text" name="name" id="name" placeholder="name" onChange={({ target: { value } }) => setName(value)} />
         <button type="submit">Add User</button>
+        <button type="reset" onClick={(e) => {
+          e.preventDefault();
+          history.goBack();
+        }}>Cancel</button>
       </form>
     </Layout>
   )

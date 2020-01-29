@@ -15,12 +15,12 @@ export function makeServer({ environment = "development" } = {}) {
     },
 
     seeds(server) {
+      server.create("user", { name: 'Admin', email: 'admin@admin.com', password: 'password' })
     },
 
     routes() {
       this.namespace = "api"
 
-      // this.resource("users");
       this.get("/users", ({ users }) => {
         return users.all();
       });
@@ -29,9 +29,25 @@ export function makeServer({ environment = "development" } = {}) {
       });
 
       this.post("/users", ({users}, request) => {
-
         return users.create(request.requestBody);
-      })
+      });
+
+      this.post("/users/:id", ({ users }, request) => {
+        let id = request.params.id
+        return users.find(id).update(request.requestBody);
+      });
+
+      this.delete("/users/:id/delete", ({ users }, request) => {
+        let id = request.params.id
+        return users.find(id).destroy();
+      });
+
+      this.get("/companies", ({ companies }) => {
+        return companies.all()
+      });
+      this.post("/companies", ({ companies }, request) => {
+        return companies.create(request.requestBody);
+      });
     },
   })
 
