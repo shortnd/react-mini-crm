@@ -9,12 +9,15 @@ const Users = () => {
   useEffect(() => {
     fetch("/api/users")
       .then(res => res.json())
-      .then(json => setUsers(json.users))
+      .then(json => {
+        setUsers(json.users)
+      })
   }, []);
 
   return (
     <Layout>
       <h1>Users</h1>
+      <Link to="/users/create">Create User</Link>
       <ul>
         {users.map(user => (
           <li key={user.id}>

@@ -20,7 +20,18 @@ export function makeServer({ environment = "development" } = {}) {
     routes() {
       this.namespace = "api"
 
-      this.resource("users");
+      // this.resource("users");
+      this.get("/users", ({ users }) => {
+        return users.all();
+      });
+      this.get("/users/:id", ({users}, request) => {
+        return users.find(request.params.id);
+      });
+
+      this.post("/users", ({users}, request) => {
+
+        return users.create(request.requestBody);
+      })
     },
   })
 
