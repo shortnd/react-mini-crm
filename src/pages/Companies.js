@@ -18,7 +18,9 @@ const Companies = () => {
       <Link to="/companies/create">Add Company</Link>
       {companies.length ? (
         <ul>
-          {companies.map(company => <li key={company.id}>{company.name}</li>)}
+          {companies.map(company => (
+            <li key={company.id}><Link to={`/companies/${company.id}`}>{company.name}</Link></li>
+          ))}
         </ul>
       ) : (
         <h3>No Companies</h3>

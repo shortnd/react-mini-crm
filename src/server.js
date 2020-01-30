@@ -16,6 +16,7 @@ export function makeServer({ environment = "development" } = {}) {
 
     seeds(server) {
       server.create("user", { name: 'Admin', email: 'admin@admin.com', password: 'password' })
+      server.create("company", { name: 'Little Cesar\'s', email: 'pizza@littlecesars.com', logo: '', website: 'https://littlecaesars.com/' })
     },
 
     routes() {
@@ -48,6 +49,14 @@ export function makeServer({ environment = "development" } = {}) {
       this.post("/companies", ({ companies }, request) => {
         return companies.create(request.requestBody);
       });
+
+      this.get("/companies/:id", ({ companies }, request) => {
+        return companies.find(request.params.id)
+      })
+
+      this.put("/companies/:id", ({ companies }, request) => {
+        return companies.find(request.params.id).update(request.requestBody);
+      })
     },
   })
 
